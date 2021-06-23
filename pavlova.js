@@ -78,6 +78,9 @@ var Pavlova = function(url, receivers) {
 	this.rxs = receivers.area[area].map(function(rx) {
 		return new RX(rx, freq, timeout);
 	});
+
+	this.rxs = shuffle(this.rxs);
+
 	this.redirected = false;
 };
 
@@ -141,3 +144,20 @@ Pavlova.handle = function(arg, redirect_cb) {
 	return true;
 };
 
+function shuffle(array) {
+  var currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
